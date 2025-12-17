@@ -1,0 +1,49 @@
+version: '3.8'
+
+services:
+  mev-africa:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: mev-africa
+    environment:
+      - EXECUTION_RPC_URL=http://anvil:8545
+      - DATABASE_PATH=/data/mev_africa.db
+      - AFRICA_VALIDATORS_CSV=/data/validators.csv
+      - POLL_INTERVAL_SECONDS=12
+      - METRICS_BIND_ADDRESS=0.0.0.0:9090
+      - LOG_LEVEL=info
+      - SAMPLE_OUTPUT_PATH=/data/audit_samples.jsonl
+    volumes:
+      - ./data:/data
+      - ./examples/africa_validators_example.csv:/data/validators.csv:ro
+    ports:
+      - "9090:9090"
+    depends_on:
+      - anvil
+    restart: unless-stopped
+
+  anvil:
+    image: ghcr.io/foundry-rs/foundry:latest
+    container_name: anvil
+    command: anvil --host 0.0.0.0
+    ports:
+      - "8545:8545"
+    restart: unless-stopped
+
+  prometheus:
+    image: prom/prometheus:latest
+    container_name: prometheus
+    volumes:
+      - ./prometheus.yml:/etc/prometheus/prometheus.yml:ro
+    ports:
+      - "9091:9090"
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+      - '--storage.tsdb.path=/prometheus'
+    depends_on:
+      - mev-africa
+    restart: unless-stopped
+
+
+

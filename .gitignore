@@ -1,0 +1,30 @@
+# Rust build artifacts
+/target
+**/*.rs.bk
+*.pdb
+Cargo.lock
+
+# Database files
+*.db
+*.db-shm
+*.db-wal
+
+# Data exports
+*.csv
+*.txt
+!examples/*.csv
+
+# Environment
+.env
+*.log
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db

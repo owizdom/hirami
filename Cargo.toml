@@ -1,0 +1,36 @@
+[workspace]
+members = [
+    "crates/ingestion",
+    "crates/mev-heuristics",
+    "crates/db",
+    "crates/telemetry",
+    "crates/cli",
+    "crates/beacon",
+]
+resolver = "2"
+
+[workspace.package]
+version = "0.1.0"
+edition = "2021"
+authors = ["MEV Africa Research Team"]
+license = "MIT OR Apache-2.0"
+
+[workspace.dependencies]
+tokio = { version = "1.35", features = ["full"] }
+anyhow = "1.0"
+thiserror = "1.0"
+serde = { version = "1.0", features = ["derive"] }
+serde_json = "1.0"
+tracing = "0.1"
+tracing-subscriber = { version = "0.3", features = ["env-filter", "json"] }
+clap = { version = "4.4", features = ["derive"] }
+async-trait = "0.1"
+chrono = { version = "0.4", features = ["serde"] }
+prometheus = "0.13"
+alloy = { version = "0.4", features = ["rpc-types", "rpc-types-eth", "rpc-types-trace"] }
+alloy-rpc-types = "0.4"
+sqlx = { version = "0.7", features = ["runtime-tokio-rustls", "sqlite", "chrono", "uuid"] }
+csv = "1.3"
+hex = "0.4"
+rust_decimal = { version = "1.33", features = ["serde-float"] }
+

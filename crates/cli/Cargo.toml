@@ -1,0 +1,28 @@
+[package]
+name = "mev-africa-cli"
+version.workspace = true
+edition.workspace = true
+authors.workspace = true
+license.workspace = true
+
+[[bin]]
+name = "mev-africa"
+path = "src/main.rs"
+
+[dependencies]
+tokio = { workspace = true }
+clap = { workspace = true }
+mev-africa-ingestion = { path = "../ingestion" }
+mev-africa-db = { path = "../db" }
+mev-africa-telemetry = { path = "../telemetry" }
+mev-africa-beacon = { path = "../beacon" }
+anyhow = { workspace = true }
+tracing = { workspace = true }
+csv = { workspace = true }
+prometheus = { workspace = true }
+serde = { workspace = true }
+sqlx = { workspace = true }
+axum = { version = "0.7", features = ["macros"] }
+tower = "0.4"
+tower-http = { version = "0.5", features = ["cors"] }
+
